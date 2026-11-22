@@ -41,6 +41,30 @@ h1{margin:0 0 4px;font-size:22px}
 .legend i{display:flex;align-items:center;gap:6px;font-style:normal;font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
 .legend u{width:10px;height:10px;border-radius:50%;display:inline-block}
 .sum{margin-top:14px;font-size:13px;color:var(--muted)}
+
+.mob{display:none}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin-bottom:4px}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;font-size:14px;padding:9px 16px;border-radius:999px;cursor:pointer;position:relative}
+.chip.on{background:linear-gradient(135deg,#7c5cff,#ff6b8b);color:#fff;border-color:transparent;font-weight:700}
+.chip.has::after{content:"";position:absolute;top:6px;left:8px;width:6px;height:6px;border-radius:50%;background:#ff6b8b}
+.chip.on.has::after{background:#fff}
+.mc{display:flex;gap:12px;align-items:stretch;margin-bottom:10px}
+.mc .tm{flex:0 0 74px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;font-size:13px;color:var(--muted);text-align:center;padding:6px}
+.mc .tm b{color:var(--text);font-size:15px}
+.mc .cd{flex:1;border-radius:16px;padding:14px;color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.14);display:flex;flex-direction:column;gap:8px}
+.mc .cd b{font-size:15px;line-height:1.6}
+.mc .cd span{font-size:13px;opacity:.95}
+.mc.off{opacity:.35}
+.mc.off .cd{filter:grayscale(1)}
+.none{text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:16px;padding:32px 12px;font-size:14px}
+@media (max-width:700px){
+body{padding:16px 12px 28px}
+.wrap{display:none}
+.mob{display:block}
+.toggle{display:flex;width:100%}
+.toggle button{flex:1}
+h1{font-size:20px}
+}
 </style>
 </head>
 <body>
@@ -51,6 +75,7 @@ h1{margin:0 0 4px;font-size:22px}
 <button data-w="odd">هفته فرد</button>
 </div>
 <div class="wrap"><div class="grid" id="g"></div></div>
+<div class="mob"><div class="chips" id="ch"></div><div id="ml"></div></div>
 <div class="legend">
 <i><u class="k1"></u>ریاضی ۱</i>
 <i><u class="k2"></u>مبانی کامپیوتر و برنامه‌سازی</i>
@@ -74,7 +99,7 @@ var cl=[
 [4,0,"k5","علوم و معارف دفاع مقدس و مقاومت","۲۴۸ برق",0]
 ];
 var g=document.getElementById("g"),week="even";
-function render(){
+function renderG(){
 var h='<div></div>';
 days.forEach(function(d){h+='<div class="h">'+d+'</div>'});
 for(var s=0;s<slots.length;s++){
@@ -87,6 +112,30 @@ h+='<div class="c '+f[2]+(off?' off':'')+'"><b>'+f[3]+'</b><span>'+f[4]+'</span>
 }}
 g.innerHTML=h;
 }
+
+var gd=(new Date().getDay()+1)%7;if(gd>5)gd=0;var md=gd;
+var starts=["۸","۱۰","۱۲","۱۴","۱۶"],ends=["۱۰","۱۲","۱۴","۱۶","۱۸"];
+function renderM(){
+var ch="";
+days.forEach(function(d,i){
+var has=cl.some(function(c){return c[0]==i});
+ch+='<button class="chip'+(i==md?' on':'')+(has?' has':'')+'" data-d="'+i+'">'+d+'</button>';
+});
+document.getElementById("ch").innerHTML=ch;
+var items=cl.filter(function(c){return c[0]==md}).sort(function(a,b){return a[1]-b[1]});
+var h="";
+items.forEach(function(f){
+var off=f[5]&&week=="odd";
+h+='<div class="mc'+(off?' off':'')+'"><div class="tm"><b>'+starts[f[1]]+'</b><span>تا</span><b>'+ends[f[1]]+'</b></div><div class="cd '+f[2]+'"><b>'+f[3]+'</b><span>'+f[4]+'</span><em class="tag" style="font-style:normal">'+(off?'این هفته برگزار نمی‌شود':(f[5]?'فقط زوج':'هر هفته'))+'</em></div></div>';
+});
+if(!items.length)h='<div class="none">این روز کلاس نداری 🎉</div>';
+document.getElementById("ml").innerHTML=h;
+}
+document.getElementById("ch").addEventListener("click",function(e){
+var d=e.target.getAttribute("data-d");if(d===null)return;
+md=+d;renderM();
+});
+function render(){renderG();renderM();}
 document.getElementById("tg").addEventListener("click",function(e){
 var w=e.target.getAttribute("data-w");if(!w)return;
 week=w;
