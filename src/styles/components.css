@@ -1,0 +1,80 @@
+/* کلید هفته، نوار روزها، لیست‌ها، کارت کلاس بعدی و امتحانات */
+
+/* کلید هفته زوج و فرد */
+.seg { display: flex; background: var(--chip); border-radius: 12px; padding: 3px; margin-bottom: 18px; }
+.seg button {
+  flex: 1; border: 0; background: none; color: var(--muted); font: inherit; font-size: 14px; font-weight: 600;
+  padding: 8px 0; border-radius: 10px; cursor: pointer; transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.seg button.on { background: var(--glass2); color: var(--text); box-shadow: 0 2px 8px rgba(40, 30, 90, 0.14); }
+.seg .cur { width: 6px; height: 6px; border-radius: 50%; background: var(--ac); display: inline-block; }
+
+/* نوار روزها */
+.strip { display: flex; gap: 6px; margin-bottom: 18px; }
+.dy {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 9px 0 8px; border: 0;
+  border-radius: 16px; background: none; color: var(--text); font: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+.dy:active { transform: scale(0.94); }
+.dy i { width: 5px; height: 5px; border-radius: 50%; background: transparent; }
+.dy.has i { background: var(--muted); opacity: 0.5; }
+.dy.on { background: var(--ac); color: #fff; box-shadow: 0 6px 16px rgba(109, 94, 240, 0.35); }
+.dy.on i { background: #fff; opacity: 0.9; }
+
+/* گروه شیشه‌ای و ردیف‌ها */
+.group {
+  background: var(--card); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid var(--gb); border-radius: 22px; box-shadow: var(--sh), var(--hi); overflow: hidden;
+}
+.row {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; position: relative;
+  transition: background 0.15s, transform 0.15s;
+  animation: row-in 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  animation-delay: calc(min(var(--i, 0), 6) * 45ms);
+}
+.row + .row::before { content: ''; position: absolute; top: 0; right: 16px; left: 16px; height: 1px; background: var(--sep); }
+.row:active { background: var(--tap); transform: scale(0.99); }
+@keyframes row-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.tm { flex: 0 0 50px; text-align: center; line-height: 1.5; }
+.tm b { display: block; font-size: 15px; font-weight: 800; }
+.tm span { display: block; font-size: 12px; color: var(--muted); }
+.bar { flex: 0 0 4px; align-self: stretch; min-height: 38px; border-radius: 4px; background: var(--c); }
+.inf { flex: 1; min-width: 0; }
+.inf b { display: block; font-size: 16px; font-weight: 600; line-height: 1.6; }
+.inf span { display: block; font-size: 13px; color: var(--muted); }
+.bd { font-style: normal; font-size: 11px; font-weight: 600; color: var(--muted); background: var(--chip); padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.chev { color: var(--muted); opacity: 0.5; font-size: 22px; line-height: 1; }
+.row.off { opacity: 0.45; }
+
+.sec { font-size: 13px; font-weight: 600; color: var(--muted); margin: 22px 10px 8px; display: flex; gap: 8px; align-items: center; }
+.sec em { font-style: normal; font-size: 11px; color: #fff; background: var(--ac); border-radius: 999px; padding: 1px 9px; }
+.none { padding: 34px 12px; text-align: center; color: var(--muted); font-size: 14px; }
+.foot { font-size: 13px; color: var(--muted); margin: 14px 10px 0; line-height: 1.9; }
+
+/* کارت کلاس بعدی */
+.next {
+  display: flex; gap: 14px; padding: 16px; margin-bottom: 18px; cursor: pointer; border-radius: 22px;
+  background: var(--card); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid var(--gb); box-shadow: var(--sh), var(--hi); transition: transform 0.15s;
+  animation: row-in 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+.next:active { transform: scale(0.99); }
+.next-body { flex: 1; min-width: 0; }
+.next-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--muted); }
+.next-name { font-size: 17px; font-weight: 800; margin: 4px 0 2px; line-height: 1.6; }
+.next-meta { font-size: 13px; color: var(--muted); }
+.next-count { margin-top: 10px; font-size: 14px; font-weight: 800; color: var(--ac); }
+.live { color: var(--ac); display: inline-flex; align-items: center; gap: 6px; }
+.live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--ac); animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.7); } }
+.progress { height: 6px; border-radius: 6px; background: var(--chip); overflow: hidden; margin-top: 10px; }
+.progress i { display: block; height: 100%; border-radius: 6px; background: var(--c); transition: width 0.8s ease; }
+
+/* امتحانات */
+.inf span.count { margin-top: 2px; font-weight: 800; color: var(--ac); }
+.inf span.count.soon { color: var(--hot); }
+.inf span.count.done { color: var(--muted); font-weight: 600; }
+.row.nearest { background: var(--tap); }

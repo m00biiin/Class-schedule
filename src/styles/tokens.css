@@ -1,0 +1,62 @@
+/* رنگ‌ها و متغیرهای طراحی؛ تم روشن پیش‌فرض و تم تاریک (OLED) خودکار از تنظیم گوشی */
+:root {
+  --text: #1c1a2b;
+  --muted: #7a7790;
+  --ac: #6d5ef0;
+  --hot: #e5484d;
+  --bg: linear-gradient(170deg, #fbf9ff 0%, #f3f1fb 55%, #eef1fb 100%);
+  --card: rgba(255, 255, 255, 0.82);
+  --sep: rgba(60, 50, 100, 0.1);
+  --chip: rgba(80, 70, 130, 0.08);
+  --tap: rgba(80, 70, 130, 0.06);
+  --gb: rgba(255, 255, 255, 0.95);
+  --sh: 0 6px 24px rgba(90, 70, 160, 0.08);
+  --hi: inset 0 1px 0 #fff;
+  --glass2: rgba(255, 255, 255, 0.95);
+  --bar: rgba(255, 255, 255, 0.72);
+  --bn: rgba(255, 255, 255, 0.9);
+  --b1: #e2d9ff;
+  --b2: #d6defa;
+  --bo: 0.6;
+  /* رنگ پنج درس (خانواده‌ی بنفش و نیلی) */
+  --s1: #4f46e5;
+  --s2: #7c3aed;
+  --s3: #b06cf3;
+  --s4: #6f86e8;
+  --s5: #64748b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --text: #f5f3ff;
+    --muted: #9f9cb6;
+    --ac: #9b8cff;
+    --hot: #ff7b7f;
+    --bg: #000;
+    --card: rgba(255, 255, 255, 0.07);
+    --sep: rgba(255, 255, 255, 0.1);
+    --chip: rgba(255, 255, 255, 0.1);
+    --tap: rgba(255, 255, 255, 0.06);
+    --gb: rgba(255, 255, 255, 0.13);
+    --sh: 0 6px 24px rgba(0, 0, 0, 0.6);
+    --hi: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --glass2: rgba(255, 255, 255, 0.16);
+    --bar: rgba(34, 32, 50, 0.72);
+    --bn: rgba(28, 26, 42, 0.88);
+    --b1: #3b2a8f;
+    --b2: #27348a;
+    --bo: 0.4;
+    --s1: #7c78ff;
+    --s2: #a077ff;
+    --s3: #c58cff;
+    --s4: #8aa0ff;
+    --s5: #8b97ab;
+  }
+}
+
+/* رنگ هر درس از روی کلاس tone-N */
+.tone-1 { --c: var(--s1); }
+.tone-2 { --c: var(--s2); }
+.tone-3 { --c: var(--s3); }
+.tone-4 { --c: var(--s4); }
+.tone-5 { --c: var(--s5); }

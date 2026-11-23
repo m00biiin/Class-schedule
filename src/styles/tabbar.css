@@ -1,0 +1,25 @@
+/* نوار تب شناور شیشه‌ای با قطره‌ی مایع */
+.tabs {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  width: min(92%, 420px); height: 68px; display: flex; padding: 6px; border-radius: 34px; z-index: 60;
+  background: var(--bar); -webkit-backdrop-filter: blur(30px) saturate(190%); backdrop-filter: blur(30px) saturate(190%);
+  border: 1px solid var(--gb); box-shadow: 0 12px 34px rgba(30, 15, 80, 0.2), var(--hi);
+}
+.goo-defs { position: absolute; }
+.goo { position: absolute; inset: 6px; opacity: 0.3; filter: url(#goo); z-index: 1; pointer-events: none; }
+.goo i { position: absolute; top: 0; bottom: 0; background: var(--ac); border-radius: 30px; }
+.goo .goo-drop { top: 6px; bottom: 6px; }
+
+/* انیمیشن فقط بعد از اولین قرارگیری فعال می‌شود */
+.tabs.ready .goo-drop { transition: left 0.3s cubic-bezier(0.3, 1, 0.4, 1), width 0.3s cubic-bezier(0.3, 1, 0.4, 1); }
+.tabs.ready .goo-pill { transition: left 0.55s cubic-bezier(0.3, 1.25, 0.4, 1) 0.06s, width 0.55s cubic-bezier(0.3, 1.25, 0.4, 1) 0.06s; }
+
+.tabs button {
+  position: relative; z-index: 3; flex: 1; border: 0; background: none; color: var(--muted); font: inherit;
+  font-size: 11px; font-weight: 600; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; cursor: pointer; border-radius: 28px; transition: color 0.3s;
+}
+.tabs button svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.4s cubic-bezier(0.3, 1.4, 0.5, 1); }
+.tabs button.on { color: var(--ac); }
+.tabs button.on svg { transform: translateY(-1px) scale(1.08); }
+.tabs button:active svg { transform: scale(0.9); }
